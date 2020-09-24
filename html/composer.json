@@ -1,0 +1,15 @@
+{
+    "name": "gustavopix/listatarefa",
+    "description": "Projeto de listas de tarefas",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Gustavo Carvalho",
+            "email": "gustavo1net@hotmail.com"
+        }
+    ],
+    "require": {
+        "slim/psr7":"^1",
+        "slim/slim":"^4.0"
+    }
+}
