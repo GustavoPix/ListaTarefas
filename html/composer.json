@@ -8,6 +8,17 @@
             "email": "gustavo1net@hotmail.com"
         }
     ],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "Source\\": "source/"
+        },
+        "files": [
+            "source/Config.php"
+        ]
+    },
     "require": {
         "slim/psr7":"^1",
         "slim/slim":"^4.0"
