@@ -2,5 +2,4 @@
 
 require "../configs/configs.php";
 
-
 ?>
