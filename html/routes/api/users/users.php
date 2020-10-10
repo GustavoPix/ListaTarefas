@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
 use Source\Sql\Sql;
+use Source\Security\Encrypt;
 
 
 
@@ -29,6 +30,8 @@ $app->post('/api/user', function (Request $request, Response $response, $args) u
         ]);
         if(count($prev) == 0)
         {
+            $object["pass"] = Encrypt::encryptData($object["pass"]);
+
             $sql->select("INSERT INTO users(name,email,pass) VALUES(:name,:email,:pass)",$object);
             $user = $sql->select("SELECT id,name,email FROM users WHERE email = :email ORDER BY id DESC LIMIT 1",[
                 ":email"=>$object["email"]
