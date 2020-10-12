@@ -11,6 +11,8 @@ use Source\Auxiliares\Auxiliares;
 
 require __DIR__ . '/vendor/autoload.php';
 
+require __DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php';
+
 // Instantiate App
 $app = AppFactory::create();
 
@@ -19,22 +21,11 @@ $app->addErrorMiddleware(true, true, true);
 
 // Add routes
 $app->get('/', function (Request $request, Response $response) {
-    $response->getBody()->write('<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <p>Token: <span>' . (isset($_SESSION['token']) ? $_SESSION['token'] : '') . '</span></p>
-        <form action="/login" method="POST">
-            <p>Username: <input type="text" name="email" /></p>
-            <p>pass: <input type="password" name="pass" /></p>
-            <p><input type="submit" name="submit" value="Login" /></p>
-        </form>
-    </body>
-    </html>');
+
+    $smarty = new Smarty();
+    $smarty->assign('msn', 'Olá mundo!');
+    
+    $smarty->display('index.tpl');
     return $response;
 });
 

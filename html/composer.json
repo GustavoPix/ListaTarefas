@@ -21,6 +21,7 @@
     },
     "require": {
         "slim/psr7":"^1",
-        "slim/slim":"^4.0"
+        "slim/slim":"^4.0",
+        "smarty/smarty": "~3.1"
     }
 }
