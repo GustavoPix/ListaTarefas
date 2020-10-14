@@ -1,0 +1,94 @@
+.login{
+    display: flex;
+    h1{
+        font-size: 45px;
+        color: $white1;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+    }
+    .copy{
+        font-size: 12px;
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        a{
+            color: $white1;
+        }
+    }
+    .left,.right{
+        padding: 50px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        *{
+            color: $white1;
+        }
+        h2{
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        p{
+            font-size: 12px;
+        }
+        .error{
+            color: $color2;
+            margin-bottom: 10px;
+        }
+        form{
+            width: 100%;
+            max-width: 500px;
+            input{
+                width: 100%;
+                padding: 10px 15px;
+                display: block;
+                background: none;
+                border: 1px solid $white1;
+                border-radius: 3px;
+                margin-bottom: 15px;
+                &::placeholder{
+                    color: $white1;
+                    opacity: 0.5;
+                }
+            }
+            .alignRight{
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 50px;
+                p{
+                    display: block;
+                    cursor: pointer;
+                    color: $color1;
+                }
+            }
+            .button{
+                margin: 0 auto;
+                display: block;
+            }
+            
+        }
+    }
+
+    .left{
+        width: 70%;
+        background: $black;
+    }
+    .right{
+        width: 30%;
+        background: $color1;
+        align-items: flex-end;
+        .error{
+            color: $white1;
+        }
+        form{
+            .marginBottom{
+                margin-bottom: 30px;
+            }
+        }
+        .button{
+            background: $white1;
+            color: $color1;
+        }
+    }
+}

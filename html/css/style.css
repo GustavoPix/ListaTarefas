@@ -1,0 +1,171 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
+  margin: 0;
+  padding: 0;
+  min-width: 1px;
+  min-height: 1px;
+  font-style: none;
+  text-decoration: none;
+  font-weight: normal;
+  list-style-type: none;
+}
+
+.login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.login h1 {
+  font-size: 45px;
+  color: #CCCCD4;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+
+.login .copy {
+  font-size: 12px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+.login .copy a {
+  color: #CCCCD4;
+}
+
+.login .left, .login .right {
+  padding: 50px;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.login .left *, .login .right * {
+  color: #CCCCD4;
+}
+
+.login .left h2, .login .right h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.login .left p, .login .right p {
+  font-size: 12px;
+}
+
+.login .left .error, .login .right .error {
+  color: #B44545;
+  margin-bottom: 10px;
+}
+
+.login .left form, .login .right form {
+  width: 100%;
+  max-width: 500px;
+}
+
+.login .left form input, .login .right form input {
+  width: 100%;
+  padding: 10px 15px;
+  display: block;
+  background: none;
+  border: 1px solid #CCCCD4;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
+.login .left form input::-webkit-input-placeholder, .login .right form input::-webkit-input-placeholder {
+  color: #CCCCD4;
+  opacity: 0.5;
+}
+
+.login .left form input:-ms-input-placeholder, .login .right form input:-ms-input-placeholder {
+  color: #CCCCD4;
+  opacity: 0.5;
+}
+
+.login .left form input::-ms-input-placeholder, .login .right form input::-ms-input-placeholder {
+  color: #CCCCD4;
+  opacity: 0.5;
+}
+
+.login .left form input::placeholder, .login .right form input::placeholder {
+  color: #CCCCD4;
+  opacity: 0.5;
+}
+
+.login .left form .alignRight, .login .right form .alignRight {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-bottom: 50px;
+}
+
+.login .left form .alignRight p, .login .right form .alignRight p {
+  display: block;
+  cursor: pointer;
+  color: #4949A5;
+}
+
+.login .left form .button, .login .right form .button {
+  margin: 0 auto;
+  display: block;
+}
+
+.login .left {
+  width: 70%;
+  background: #1F1F24;
+}
+
+.login .right {
+  width: 30%;
+  background: #4949A5;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.login .right .error {
+  color: #CCCCD4;
+}
+
+.login .right form .marginBottom {
+  margin-bottom: 30px;
+}
+
+.login .right .button {
+  background: #CCCCD4;
+  color: #4949A5;
+}
+
+* {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.button {
+  padding: 10px 15px;
+  min-width: 100px;
+  border-radius: 3px;
+  background: #4949A5;
+  font-size: 12px;
+  color: #CCCCD4;
+  border: none;
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.css.map */

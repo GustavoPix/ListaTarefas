@@ -23,7 +23,10 @@ $app->addErrorMiddleware(true, true, true);
 $app->get('/', function (Request $request, Response $response) {
 
     $smarty = new Smarty();
-    $smarty->assign('msn', 'Olá mundo!');
+    $smarty->setLeftDelimiter("{{{");
+        $smarty->setRightDelimiter("}}}");
+        $smarty->setAutoLiteral(false);
+    $smarty->assign('teste', 'Olá mundo!');
     
     $smarty->display('index.tpl');
     return $response;
