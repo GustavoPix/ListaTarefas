@@ -28,7 +28,8 @@ $app->get('/', function (Request $request, Response $response) {
         $smarty->setAutoLiteral(false);
     $smarty->assign('teste', 'Olá mundo!');
     
-    $smarty->display('index.tpl');
+    //$smarty->display('index.tpl');
+    $smarty->display('tarefas.tpl');
     return $response;
 });
 
@@ -69,7 +70,7 @@ $app->post('/login', function (Request $request, Response $response) {
 
         $response->getBody()->write(json_encode(array(
             "success"=>true,
-            "token"=>$token
+            "token"=>$user[0]["id"] . "_" . $token
         )));
     }
 

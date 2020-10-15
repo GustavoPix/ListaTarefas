@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <title>Lista Tarefas - Login</title>
 </head>
@@ -13,7 +14,7 @@
         <h1>Lista de Tarefas</h1>
         <div class="left">
             <h2>Login</h2>
-            <p class="error">*Email ou senha incorretos</p>
+            <p class="error" v-if="errorLogin">*Email ou senha incorretos</p>
             <form action="">
                 <input type="email" placeholder="email@email.com" v-model="login.email">
                 <input type="password" placeholder="********" v-model="login.pass">
@@ -23,6 +24,7 @@
                 <button
                     type="button"
                     class="button"
+                    @click="makeLogin()"
                 >Entrar</button>
             </form>
         </div>
