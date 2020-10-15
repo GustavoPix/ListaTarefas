@@ -282,6 +282,11 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   cursor: pointer;
 }
 
+.main_tarefas .tarefas .task_lists .newTask input {
+  color: #CCCCD4;
+  margin-bottom: 0;
+}
+
 * {
   font-family: "Ubuntu", sans-serif;
 }

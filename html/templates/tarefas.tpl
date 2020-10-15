@@ -10,11 +10,11 @@
     <title>Lista Tarefas - Tarefas</title>
 </head>
 <body>
-    <div class="main_tarefas">
+    <div class="main_tarefas" id="app">
         <div class="header">
             <div></div>
             <div class="search">
-                <input type="text" placeholder="Buscar...">
+                <input type="text" placeholder="Buscar..." v-model="search">
             </div>
             <div class="icons">
                 <ul>
@@ -34,15 +34,16 @@
         <div class="tarefas">
             <div class="task_lists">
                 <ul>
-                    <li class="task">
+                    <li class="task" v-for="task in tasks">
                         <div>
-                            <div class="check"></div>
+                            <div class="check" :class="{checked : task.completed}" @click="toggleCompleted(task)"></div>
                             <div class="name">
-                                <p>Task</p>
+                                <p v-if="!task.edit">{{task.originalName}}</p>
+                                <input type="text" v-else v-model="task.name">
                             </div>
                             <div class="icons">
                                 <ul>
-                                    <li>
+                                    <li @click="toggleEdit(task)">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.41999 20.579C4.13948 20.5785 3.87206 20.4602 3.68299 20.253C3.49044 20.0475 3.39476 19.7695 3.41999 19.489L3.66499 16.795L14.983 5.481L18.52 9.017L7.20499 20.33L4.51099 20.575C4.47999 20.578 4.44899 20.579 4.41999 20.579ZM19.226 8.31L15.69 4.774L17.811 2.653C17.9986 2.46522 18.2531 2.35971 18.5185 2.35971C18.7839 2.35971 19.0384 2.46522 19.226 2.653L21.347 4.774C21.5348 4.96157 21.6403 5.21609 21.6403 5.4815C21.6403 5.74691 21.5348 6.00143 21.347 6.189L19.227 8.309L19.226 8.31Z" fill="#CCCCD4"/>
                                         </svg>    
@@ -54,60 +55,19 @@
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                        <div class="buttons" v-if="task.edit">
+                            <button class="salvar button" @click="saveUpdateNome(task)">Salvar</button>
+                            <button class="cancelar" @click="toggleEdit(task)">Cancelar</button>
                         </div>
                     </li>
-                    <li class="task">
-                        <div>
-                            <div class="check checked"></div>
-                            <div class="name">
-                                <p>Task</p>
-                            </div>
-                            <div class="icons">
-                                <ul>
-                                    <li>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4.41999 20.579C4.13948 20.5785 3.87206 20.4602 3.68299 20.253C3.49044 20.0475 3.39476 19.7695 3.41999 19.489L3.66499 16.795L14.983 5.481L18.52 9.017L7.20499 20.33L4.51099 20.575C4.47999 20.578 4.44899 20.579 4.41999 20.579ZM19.226 8.31L15.69 4.774L17.811 2.653C17.9986 2.46522 18.2531 2.35971 18.5185 2.35971C18.7839 2.35971 19.0384 2.46522 19.226 2.653L21.347 4.774C21.5348 4.96157 21.6403 5.21609 21.6403 5.4815C21.6403 5.74691 21.5348 6.00143 21.347 6.189L19.227 8.309L19.226 8.31Z" fill="#CCCCD4"/>
-                                        </svg>    
-                                    </li>
-                                    <li>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M17 22H7C5.89543 22 5 21.1046 5 20V7H3V5H7V4C7 2.89543 7.89543 2 9 2H15C16.1046 2 17 2.89543 17 4V5H21V7H19V20C19 21.1046 18.1046 22 17 22ZM7 7V20H17V7H7ZM9 4V5H15V4H9Z" fill="#CCCCD4"/>
-                                        </svg>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="task">
-                        <div>
-                            <div class="check"></div>
-                            <div class="name">
-                                <!--<p>Task</p>-->
-                                <input type="text">
-                            </div>
-                            <div class="icons">
-                                <ul>
-                                    <li>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4.41999 20.579C4.13948 20.5785 3.87206 20.4602 3.68299 20.253C3.49044 20.0475 3.39476 19.7695 3.41999 19.489L3.66499 16.795L14.983 5.481L18.52 9.017L7.20499 20.33L4.51099 20.575C4.47999 20.578 4.44899 20.579 4.41999 20.579ZM19.226 8.31L15.69 4.774L17.811 2.653C17.9986 2.46522 18.2531 2.35971 18.5185 2.35971C18.7839 2.35971 19.0384 2.46522 19.226 2.653L21.347 4.774C21.5348 4.96157 21.6403 5.21609 21.6403 5.4815C21.6403 5.74691 21.5348 6.00143 21.347 6.189L19.227 8.309L19.226 8.31Z" fill="#CCCCD4"/>
-                                        </svg>    
-                                    </li>
-                                    <li>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M17 22H7C5.89543 22 5 21.1046 5 20V7H3V5H7V4C7 2.89543 7.89543 2 9 2H15C16.1046 2 17 2.89543 17 4V5H21V7H19V20C19 21.1046 18.1046 22 17 22ZM7 7V20H17V7H7ZM9 4V5H15V4H9Z" fill="#CCCCD4"/>
-                                        </svg>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <button class="salvar button">Salvar</button>
-                            <button class="cancelar">Cancelar</button>
-                        </div>
+                    <li class="newTask">
+                        <input type="text" placeholder="Nova Tarefa..." v-model="newTask" v-on:keyup.enter="addTask()">
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+    <script src="/js/tasks.js"></script>
 </body>
 </html>
