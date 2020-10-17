@@ -28,6 +28,19 @@ $app->get('/', function (Request $request, Response $response) {
         $smarty->setAutoLiteral(false);
     $smarty->assign('teste', 'Olá mundo!');
     
+    $smarty->display('index.tpl');
+    //$smarty->display('tarefas.tpl');
+    return $response;
+});
+
+$app->get('/tarefas', function (Request $request, Response $response) {
+
+    $smarty = new Smarty();
+    $smarty->setLeftDelimiter("{{{");
+        $smarty->setRightDelimiter("}}}");
+        $smarty->setAutoLiteral(false);
+    $smarty->assign('teste', 'Olá mundo!');
+    
     //$smarty->display('index.tpl');
     $smarty->display('tarefas.tpl');
     return $response;
@@ -84,24 +97,52 @@ $app->post('/login', function (Request $request, Response $response) {
 
     return $response->withHeader('Content-Type', 'application/json');
 });
+$app->get('/login/token', function (Request $request, Response $response) {
+    
+    $sql = new Sql();
+    
+    $data = new DateTime(' -7 day');
+    $sql->select("DELETE FROM sessions WHERE data_criacao < :data",[
+        ":data"=> $data->format('d-m-Y H:i:s')
+    ]);
 
-$app->get('/logout', function (Request $request, Response $response) {
+    $user = $sql->select("SELECT * FROM sessions WHERE token = :token AND id_user = :id_user",[
+        ":token"=>$_GET["token"],
+        ":id_user"=>$_GET["id_user"]
+    ]);
+
+
+    if(count($user) > 0)
+    {
+        $response->getBody()->write(json_encode(array(
+            "success"=>true
+        )));
+    }
+
+    else
+    {
+        $response->getBody()->write(json_encode(array(
+            "success"=>false,
+            "message"=>"Invalid Token"
+        )));
+    }
+
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/logout', function (Request $request, Response $response) {
     
     $sql = new Sql();
     
     
-    $user = $sql->select("SELECT id,email FROM users WHERE email = :email",[
-        ":email"=>$_POST["email"]
+    $sql->select("DELETE FROM sessions WHERE token = :token",[
+        ":token"=> $_POST["token"]
     ]);
 
-    if(count($user) > 0)
-    {
-        session_destroy();
-    }
-
+    session_destroy();
+    
     $response->getBody()->write(json_encode(array(
-        "success"=>true,
-        "user"=>$user
+        "success"=>true
     )));
 
     return $response->withHeader('Content-Type', 'application/json');

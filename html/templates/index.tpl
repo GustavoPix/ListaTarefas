@@ -16,8 +16,8 @@
             <h2>Login</h2>
             <p class="error" v-if="errorLogin">*Email ou senha incorretos</p>
             <form action="">
-                <input type="email" placeholder="email@email.com" v-model="login.email">
-                <input type="password" placeholder="********" v-model="login.pass">
+                <input type="email" placeholder="email@email.com" v-model="login.email" v-on:keyup.enter="makeLogin()">
+                <input type="password" placeholder="********" v-model="login.pass" v-on:keyup.enter="makeLogin()">
                 <div class="alignRight">
                     <p>Esqueci minha senha</p>
                 </div>
