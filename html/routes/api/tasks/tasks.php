@@ -92,6 +92,7 @@ $app->get('/api/tasks', function (Request $request, Response $response, $args) u
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+/*
 $app->get('/api/tasks/open', function (Request $request, Response $response, $args) use($app) {
     
 
@@ -137,7 +138,7 @@ $app->get('/api/tasks/completed', function (Request $request, Response $response
     
     return $response->withHeader('Content-Type', 'application/json');
 });
-
+*/
 $app->delete('/api/task', function (Request $request, Response $response, $args) use($app) {
     
 

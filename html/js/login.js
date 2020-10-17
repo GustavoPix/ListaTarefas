@@ -6,6 +6,8 @@ const vm_login = new Vue({
             pass:""
         },
         errorLogin: false,
+        errorCadastro:"",
+        resetPass:false,
         newAccount:{
             name:"",
             email:"",
@@ -33,6 +35,50 @@ const vm_login = new Vue({
             .catch(r => {
                 debugger;
             });
+        },
+        createUser()
+        {
+            this.errorCadastro = "";
+            if(this.newAccount.name.trim().split(' ').length < 1)
+            {
+                this.errorCadastro = "Preencha com seu completo";
+                return null;
+            }
+            else if(!this.newAccount.email.includes("@")) 
+            {
+                this.errorCadastro = "Digite um email válido";
+                return null;
+            }
+            else if(this.newAccount.pass.length < 6) 
+            {
+                this.errorCadastro = "Senha deve conter ao menos 6 caracteres";
+                return null;
+            }
+            let formData = new FormData();
+            formData.append("email",this.newAccount.email);
+            formData.append("pass",this.newAccount.pass);
+            formData.append("name",this.newAccount.name);
+
+            axios.post(`/api/user`,formData)
+            .then(r => {
+                if(r.data.success)
+                {
+                    this.login.email = this.newAccount.email;
+                    this.login.pass = this.newAccount.pass;
+                    this.makeLogin();
+                }
+                else
+                {
+                    this.errorCadastro = "Email já cadastrado";
+                }
+            })
+            .catch(r => {
+                debugger;
+            });
+        },
+        resetPass()
+        {
+
         },
         checkToken(str)
         {

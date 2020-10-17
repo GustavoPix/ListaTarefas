@@ -19,7 +19,7 @@
                 <input type="email" placeholder="email@email.com" v-model="login.email" v-on:keyup.enter="makeLogin()">
                 <input type="password" placeholder="********" v-model="login.pass" v-on:keyup.enter="makeLogin()">
                 <div class="alignRight">
-                    <p>Esqueci minha senha</p>
+                    <p @click="resetPass = true">Esqueci minha senha</p>
                 </div>
                 <button
                     type="button"
@@ -30,18 +30,30 @@
         </div>
         <div class="right">
             <h2>Criar Conta</h2>
-            <p class="error">*Email já cadastrado</p>
+            <p class="error" v-if="errorCadastro != ''">*{{errorCadastro}}</p>
             <form action="">
-                <input type="text" placeholder="Nome e Sobrenome" v-model="newAccount.name">
-                <input type="email" placeholder="email@email.com" v-model="newAccount.email">
-                <input type="password" placeholder="********" class="marginBottom" v-model="newAccount.pass">
+                <input type="text" placeholder="Nome e Sobrenome" v-model="newAccount.name" v-on:keyup.enter="createUser()">
+                <input type="email" placeholder="email@email.com" v-model="newAccount.email" v-on:keyup.enter="createUser()">
+                <input type="password" placeholder="********" class="marginBottom" v-model="newAccount.pass" v-on:keyup.enter="createUser()">
                 <button
                     type="button"
                     class="button"
+                    @click="createUser()"
                 >Criar conta</button>
             </form>
         </div>
         <p class="copy"><a href="https://gustavo-carvalho.com" target="_blank">@ 2020 - Gustavo Carvalho</a></p>
+        <div class="resetPass" v-if="resetPass" @click.self.prevent="resetPass = false">
+            <div class="center">
+                <p class="descricao">Digite seu email para trocar sua senha</p>
+                <input type="email" v-model="login.email" v-on:keyup.enter="resetPass()">
+                <button
+                    type="button"
+                    class="button"
+                    @click="resetPass()"
+                >Enviar</button>
+            </div>
+        </div>
     </div>
     <script src="/js/login.js"></script>
 </body>

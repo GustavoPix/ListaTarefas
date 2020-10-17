@@ -124,6 +124,39 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   color: #4949A5;
 }
 
+.login .resetPass {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(31, 31, 36, 0.8);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.login .resetPass .center {
+  padding: 20px;
+  background: #CCCCD4;
+  border-radius: 3px;
+}
+
+.login .resetPass .center .descricao {
+  font-size: 24px;
+  color: #1F1F24;
+  margin-bottom: 30px;
+}
+
+.login .resetPass .center input {
+  border: 1px solid #4949A5;
+  margin-bottom: 30px;
+}
+
 .main_tarefas {
   display: -webkit-box;
   display: -ms-flexbox;

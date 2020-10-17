@@ -90,7 +90,6 @@ const vm_tasks = new Vue({
 
                 return this.tasks[aux-1];
 
-                this.newTask = "";
             }
 
             return null;
@@ -142,12 +141,11 @@ const vm_tasks = new Vue({
         },
         deleteTask(index)
         {
-            let id = this.tasks[index].id;
+            let id = this.filteredTasks()[index].id;
             this.tasks.splice(index,1);
 
             axios.delete(`/api/task?id_user=${this.id_user}&token=${this.token}&id=${id}`)
             .then(r => {
-                debugger
                 if(r.data.success)
                 {
                     
@@ -160,6 +158,19 @@ const vm_tasks = new Vue({
             .catch(r => {
                 debugger;
             });
+        },
+        filteredTasks()
+        {
+            let tasks = [];
+            
+            this.tasks.forEach(t => tasks.push(t));
+
+            if(this.search.trim() != "")
+            {
+                tasks = tasks.filter(t => t.originalName.includes(this.search.trim()));
+            }
+
+            return tasks;
         },
         checkToken(str)
         {

@@ -79,4 +79,28 @@
             color: $color1;
         }
     }
+
+    .resetPass{
+        position: absolute;
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        background: rgba($color: $black, $alpha: 0.8);
+        align-items: center;
+        justify-content: center;
+        .center{
+            padding: 20px;
+            background: $white1;
+            border-radius: 3px;
+            .descricao{
+                font-size: 24px;
+                color: $black;
+                margin-bottom: 30px;
+            }
+            input{
+                border: 1px solid $color1;
+                margin-bottom: 30px;
+            }
+        }
+    }
 }

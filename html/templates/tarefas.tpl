@@ -34,7 +34,7 @@
         <div class="tarefas">
             <div class="task_lists">
                 <ul>
-                    <li class="task" v-for="(task,i) in tasks">
+                    <li class="task" v-for="(task,i) in filteredTasks()">
                         <div>
                             <div class="check" :class="{checked : task.completed}" @click="toggleCompleted(task)"></div>
                             <div class="name">
