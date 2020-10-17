@@ -144,29 +144,47 @@ $app->delete('/api/task', function (Request $request, Response $response, $args)
     $object = array(
         "id"=>"",
         "id_user"=>1,
+        "token"=>""
     );
 
     $object = array_merge($object,$_GET);
 
-
-
     $sql = new Sql();
 
-    if($object["id"] != "")
+    $user = $sql->select("SELECT * FROM sessions WHERE token = :token AND id_user = :id_user",[
+        ":token"=>$object["token"],
+        ":id_user"=>$object["id_user"]
+    ]);
+
+    if(count($user) > 0)
     {
-
-        $task = $sql->select("DELETE FROM tasks WHERE id = :id AND id_user = :id_user",$object);
-
-        $response->getBody()->write(json_encode(array(
-            "success"=>true
-        )));
+        if($object["id"] != "")
+        {
+    
+            $task = $sql->select("DELETE FROM tasks WHERE id = :id AND id_user = :id_user",[
+                ":id"=>$object["id"],
+                ":id_user"=>$object["id_user"]
+            ]);
+    
+            $response->getBody()->write(json_encode(array(
+                "success"=>true
+            )));
+        }
+    
+        else
+        {
+            $response->getBody()->write(json_encode(array(
+                "success"=>false,
+                "message"=>"id as null",
+                "object"=>$object
+            )));
+        }
     }
-
     else
     {
         $response->getBody()->write(json_encode(array(
             "success"=>false,
-            "message"=>"id as null",
+            "message"=>"Not authorized",
             "object"=>$object
         )));
     }
@@ -180,31 +198,50 @@ $app->put('/api/task', function (Request $request, Response $response, $args) us
     $object = array(
         "id"=>"",
         "id_user"=>1,
-        "task"=>""
+        "task"=>"",
+        "token"=>""
     );
 
     $object = array_merge($object,$_GET);
 
-
-
     $sql = new Sql();
 
-    if($object["id"] != "" && $object["task"] != "")
+    $user = $sql->select("SELECT * FROM sessions WHERE token = :token AND id_user = :id_user",[
+        ":token"=>$object["token"],
+        ":id_user"=>$object["id_user"]
+    ]);
+
+    if(count($user) > 0)
     {
-
-        $task = $sql->select("UPDATE tasks SET task = :task WHERE id = :id AND id_user = :id_user",$object);
-
-        $response->getBody()->write(json_encode(array(
-            "success"=>true,
-            "task"=>$task
-        )));
+        if($object["id"] != "" && $object["task"] != "")
+        {
+    
+            $task = $sql->select("UPDATE tasks SET task = :task WHERE id = :id AND id_user = :id_user",[
+                ":task"=>$object["task"],
+                ":id"=>$object["id"],
+                ":id_user"=>$object["id_user"]
+            ]);
+    
+            $response->getBody()->write(json_encode(array(
+                "success"=>true,
+                "task"=>$task
+            )));
+        }
+    
+        else
+        {
+            $response->getBody()->write(json_encode(array(
+                "success"=>false,
+                "message"=>"id as null",
+                "object"=>$object
+            )));
+        }
     }
-
     else
     {
         $response->getBody()->write(json_encode(array(
             "success"=>false,
-            "message"=>"id as null",
+            "message"=>"Not authorized",
             "object"=>$object
         )));
     }
@@ -269,7 +306,7 @@ $app->post('/api/task/complete', function (Request $request, Response $response,
     {
         $response->getBody()->write(json_encode(array(
             "success"=>false,
-            "message"=>"id as null",
+            "message"=>"Not authorized",
             "object"=>$object
         )));
     }
@@ -346,32 +383,54 @@ $app->post('/api/task', function (Request $request, Response $response, $args) u
 
     $object = array(
         "id_user"=>1,
-        "task"=>""
+        "task"=>"",
+        "token"=>""
     );
 
     $object = array_merge($object,$_POST);
 
-
-
     $sql = new Sql();
 
-    if($object["task"] != "")
+    $user = $sql->select("SELECT * FROM sessions WHERE token = :token AND id_user = :id_user",[
+        ":token"=>$object["token"],
+        ":id_user"=>$object["id_user"]
+    ]);
+
+    if(count($user) > 0)
     {
-        $sql->select("INSERT INTO tasks(id_user,task) VALUES(:id_user,:task)",$object);
 
-        $task = $sql->select("SELECT * FROM tasks WHERE task = :task AND id_user = :id_user ORDER BY id DESC LIMIT 1",$object);
+        if($object["task"] != "")
+        {
+            $sql->select("INSERT INTO tasks(id_user,task) VALUES(:id_user,:task)",[
+                ":id_user"=>$object["id_user"],
+                ":task"=>$object["task"]
+            ]);
 
-        $response->getBody()->write(json_encode(array(
-            "success"=>true,
-            "task"=>$task
-        )));
+            $task = $sql->select("SELECT * FROM tasks WHERE task = :task AND id_user = :id_user ORDER BY id DESC LIMIT 1",[
+                ":task"=>$object["task"],
+                ":id_user"=>$object["id_user"]
+            ]);
+
+            $response->getBody()->write(json_encode(array(
+                "success"=>true,
+                "task"=>$task[0]
+            )));
+        }
+
+        else
+        {
+            $response->getBody()->write(json_encode(array(
+                "success"=>false,
+                "message"=>"Task as null"
+            )));
+        }
     }
-
     else
     {
         $response->getBody()->write(json_encode(array(
             "success"=>false,
-            "message"=>"Task as null"
+            "message"=>"not authorized",
+            "object"=>$object
         )));
     }
     

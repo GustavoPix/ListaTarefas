@@ -41,13 +41,13 @@
         height: 100%;
         overflow-y: auto;
         .task_lists{
-            padding-top: 50px;
+            padding-top: 45px;
             width: 100%;
             max-width: 750px;
             margin: 0 auto;
             .task{
                 width: 100%;
-                margin-bottom: 30px;
+                padding: 15px 0;
                 > div{
                     display: flex;
                     align-items: center;
@@ -81,6 +81,7 @@
                     }
                 }
                 .icons{
+                    opacity: 0;
                     ul{
                         display: flex;
                         align-items: center;
@@ -105,8 +106,15 @@
                         cursor: pointer;
                     }
                 }
+
+                &:hover{
+                    .icons{
+                        opacity: 1;
+                    }
+                }
             }
             .newTask{
+                margin-top: 15px;
                 input{
                     color: $white1;
                     margin-bottom: 0;

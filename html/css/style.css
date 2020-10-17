@@ -196,7 +196,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
 }
 
 .main_tarefas .tarefas .task_lists {
-  padding-top: 50px;
+  padding-top: 45px;
   width: 100%;
   max-width: 750px;
   margin: 0 auto;
@@ -204,7 +204,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
 
 .main_tarefas .tarefas .task_lists .task {
   width: 100%;
-  margin-bottom: 30px;
+  padding: 15px 0;
 }
 
 .main_tarefas .tarefas .task_lists .task > div {
@@ -250,6 +250,10 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   margin-bottom: 0;
 }
 
+.main_tarefas .tarefas .task_lists .task .icons {
+  opacity: 0;
+}
+
 .main_tarefas .tarefas .task_lists .task .icons ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -280,6 +284,14 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   color: #4949A5;
   margin-left: 25px;
   cursor: pointer;
+}
+
+.main_tarefas .tarefas .task_lists .task:hover .icons {
+  opacity: 1;
+}
+
+.main_tarefas .tarefas .task_lists .newTask {
+  margin-top: 15px;
 }
 
 .main_tarefas .tarefas .task_lists .newTask input {

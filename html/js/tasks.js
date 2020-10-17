@@ -60,6 +60,21 @@ const vm_tasks = new Vue({
         {
             task.originalName = task.name;
             task.edit = false;
+
+            axios.put(`/api/task?id_user=${this.id_user}&token=${this.token}&id=${task.id}&task=${task.name}`)
+            .then(r => {
+                if(r.data.success)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+            })
+            .catch(r => {
+                debugger;
+            });
         },
         addTask(name,id = 0,completed = false)
         {
@@ -82,8 +97,29 @@ const vm_tasks = new Vue({
         },
         addTaskButton()
         {
-            this.addTask(this.newTask);
+            let task = this.addTask(this.newTask);
             this.newTask = "";
+
+            let formData = new FormData();
+            formData.append("task",task.originalName);
+            formData.append("id_user",this.id_user);
+            formData.append("token",this.token);
+
+            axios.post(`/api/task`,formData)
+            .then(r => {
+                if(r.data.success)
+                {
+                    task.id = r.data.task.id;
+                }
+                else
+                {
+                    
+                }
+            })
+            .catch(r => {
+                debugger;
+            });
+            
         },
         getTasks()
         {
@@ -94,6 +130,27 @@ const vm_tasks = new Vue({
                     r.data.tasks.forEach(task => {
                         this.addTask(task.task,task.id,task.data_conclusao != "2000-01-01 00:00:00");
                     });
+                }
+                else
+                {
+                    
+                }
+            })
+            .catch(r => {
+                debugger;
+            });
+        },
+        deleteTask(index)
+        {
+            let id = this.tasks[index].id;
+            this.tasks.splice(index,1);
+
+            axios.delete(`/api/task?id_user=${this.id_user}&token=${this.token}&id=${id}`)
+            .then(r => {
+                debugger
+                if(r.data.success)
+                {
+                    
                 }
                 else
                 {
