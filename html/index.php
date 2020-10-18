@@ -149,6 +149,21 @@ $app->post('/logout', function (Request $request, Response $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/resetpassword', function (Request $request, Response $response) {
+    
+    $sql = new Sql();
+
+    $smarty = new Smarty();
+    $smarty->setLeftDelimiter("{{{");
+        $smarty->setRightDelimiter("}}}");
+        $smarty->setAutoLiteral(false);
+    $smarty->assign('teste', 'Olá mundo!');
+    
+    $smarty->display('resetPassword.tpl');
+    //$smarty->display('tarefas.tpl');
+    return $response;
+});
+
 $app->post('/resetpassword', function (Request $request, Response $response) {
     
     $sql = new Sql();
