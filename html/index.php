@@ -9,6 +9,7 @@ use Source\Sql\Sql;
 use Source\Security\Encrypt;
 use Source\Auxiliares\Auxiliares;
 
+
 require __DIR__ . '/vendor/autoload.php';
 
 require __DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php';
@@ -144,6 +145,53 @@ $app->post('/logout', function (Request $request, Response $response) {
     $response->getBody()->write(json_encode(array(
         "success"=>true
     )));
+
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/resetpassword', function (Request $request, Response $response) {
+    
+    $sql = new Sql();
+
+    $object = array(
+        "email"=>""
+    );
+
+    $object = array_merge($object,$_POST);
+
+    $user = $sql->select("SELECT id,name FROM users WHERE email = :email",[
+        ":email"=>$object["email"]
+    ]);
+
+    if(count($user) > 0)
+    {
+        $token = Auxiliares::randomString(100);
+
+        $data = new DateTime(' -2 hour');
+        $sql->select("DELETE FROM resetPass WHERE data_criacao < :data OR token = :token",[
+            ":data"=> $data->format('d-m-Y H:i:s'),
+            ":token"=> $token
+        ]);
+
+        $sql->select("INSERT INTO resetPass(id_user,token) VALUES(:id_user,:token)",[
+            ":id_user"=> $user[0]["id"],
+            ":token"=> $token
+        ]);
+
+        $frase = "Você solicitou a troca de senha da <b>Lista de Tarefas</b></br>Clique o link abaixo para digitar sua nova senha</br></br>" . ROUTE . "/resetpassword?token=" . $token;
+
+        
+        $response->getBody()->write(json_encode(array(
+            "success"=>Auxiliares::sendEmail($object["email"],$user[0]["name"],"Trocar senha",$frase)
+        )));
+    }
+    else
+    {
+        $response->getBody()->write(json_encode(array(
+            "success"=>false
+        )));
+    }
+    
 
     return $response->withHeader('Content-Type', 'application/json');
 });

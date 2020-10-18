@@ -22,3 +22,10 @@ create table sessions(
     data_criacao TIMESTAMP default now(),
     token VARCHAR(255) NOT NULL
 );
+
+create table resetPass(
+	id INT primary key auto_increment not null,
+    id_user INT NOT  NULL,
+    data_criacao TIMESTAMP default now(),
+    token VARCHAR(255) NOT NULL
+);
