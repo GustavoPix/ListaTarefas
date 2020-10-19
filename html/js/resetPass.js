@@ -23,7 +23,27 @@ const vm_resetPass = new Vue({
                 let aux = new URLSearchParams(window.location.search);
                 if(aux.get("token"))
                 {
-                    alert("Send Pass no token " + aux.get("token"));
+                    //alert("Send Pass no token " + aux.get("token"));
+
+                    let formData = new FormData();
+                    formData.append("token",aux.get("token"));
+                    formData.append("pass",this.senha);
+
+                    axios.post(`/resetpassword/token`,formData)
+                    .then(r => {
+                        if(r.data.success)
+                        {
+                            window.location = "/";
+                        }
+                        else
+                        {
+                            this.error = "Link expirado";
+                            debugger
+                        }
+                    })
+                    .catch(r => {
+                        debugger;
+                    });
                 }
             }
         }

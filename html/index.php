@@ -210,6 +210,53 @@ $app->post('/resetpassword', function (Request $request, Response $response) {
 
     return $response->withHeader('Content-Type', 'application/json');
 });
+$app->post('/resetpassword/token', function (Request $request, Response $response) {
+    
+    $sql = new Sql();
+
+    $object = array(
+        "token"=>"",
+        "pass"=>""
+    );
+
+    $object = array_merge($object,$_POST);
+
+    $data = new DateTime(' -2 hour');
+    $sql->select("DELETE FROM resetPass WHERE data_criacao < :data",[
+        ":data"=> $data->format('d-m-Y H:i:s')
+    ]);
+
+    $user = $sql->select("SELECT id_user FROM resetPass WHERE token = :token",[
+        ":token"=>$object["token"]
+    ]);
+
+    if(count($user) > 0)
+    {
+        $object["pass"] = Encrypt::encryptData($object["pass"]);
+        $sql->select("UPDATE users SET pass = :pass WHERE id = :id",[
+            ":pass"=>$object["pass"],
+            ":id"=>$user[0]["id_user"]
+        ]);
+
+        $sql->select("DELETE FROM resetPass WHERE token = :token",[
+            ":token"=> $object["token"]
+        ]);
+        
+        
+        $response->getBody()->write(json_encode(array(
+            "success"=>true
+        )));
+    }
+    else
+    {
+        $response->getBody()->write(json_encode(array(
+            "success"=>false
+        )));
+    }
+    
+
+    return $response->withHeader('Content-Type', 'application/json');
+});
 
 
 require "./routes/routes.php";

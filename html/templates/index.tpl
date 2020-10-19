@@ -50,7 +50,7 @@
                 <button
                     type="button"
                     class="button"
-                    @click="resetPass()"
+                    @click="sendResetPass()"
                 >Enviar</button>
             </div>
         </div>

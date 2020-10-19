@@ -76,9 +76,29 @@ const vm_login = new Vue({
                 debugger;
             });
         },
-        resetPass()
+        sendResetPass()
         {
+            let formData = new FormData();
+            formData.append("email",this.login.email);
 
+            axios.post(`/resetpassword`,formData)
+            .then(r => {
+                if(r.data.success)
+                {
+                    
+                }
+                else
+                {
+                    debugger;
+                }
+
+                alert("Em alguns minutos, você receberá um email para trocar sua senha.");
+                window.location.reload();
+
+            })
+            .catch(r => {
+                debugger;
+            });
         },
         checkToken(str)
         {
