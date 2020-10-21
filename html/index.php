@@ -3,8 +3,10 @@
 use Psr\Http\Message\ResponseInterface as Response;
 //use \Slim\Http\Response as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\NotFoundException;
 use Slim\Factory\AppFactory;
 
+use Source\MyCustomErrorRenderer;
 use Source\Sql\Sql;
 use Source\Security\Encrypt;
 use Source\Auxiliares\Auxiliares;
@@ -18,7 +20,30 @@ require __DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php';
 $app = AppFactory::create();
 
 // Add error middleware
-$app->addErrorMiddleware(true, true, true);
+$app->addRoutingMiddleware();
+//$app->addErrorMiddleware(true, true, true);
+
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$errorMiddleware->setErrorHandler(\Slim\Exception\HttpNotFoundException::class, function (
+    \Psr\Http\Message\ServerRequestInterface $request,
+    \Throwable $exception,
+    bool $displayErrorDetails,
+    bool $logErrors,
+    bool $logErrorDetails
+) {
+    $response = new \Slim\Psr7\Response();
+    $response->getBody()->write('');
+
+    $smarty = new Smarty();
+    $smarty->setLeftDelimiter("{{{");
+        $smarty->setRightDelimiter("}}}");
+        $smarty->setAutoLiteral(false);
+    $smarty->assign('msn', 'Página não existe');
+    $smarty->display('resetPasswordInvalid.tpl');
+
+    return $response->withStatus(404);
+});
 
 // Add routes
 $app->get('/', function (Request $request, Response $response) {
@@ -157,9 +182,33 @@ $app->get('/resetpassword', function (Request $request, Response $response) {
     $smarty->setLeftDelimiter("{{{");
         $smarty->setRightDelimiter("}}}");
         $smarty->setAutoLiteral(false);
-    $smarty->assign('teste', 'Olá mundo!');
+    $smarty->assign('msn', 'Link expirado');
+
+    if(isset($_GET["token"]))
+    {
+        $data = new DateTime(' -2 hour');
+        $sql->select("DELETE FROM resetPass WHERE data_criacao < :data",[
+            ":data"=> $data->format('d-m-Y H:i:s')
+        ]);
+
+        $aux = $sql->select("SELECT id_user FROM resetPass WHERE token = :token",[
+            ":token"=>$_GET["token"]
+        ]);
+        if(count($aux) > 0)
+        {
+            $smarty->display('resetPassword.tpl');
+        }
+        else
+        {
+            $smarty->display('resetPasswordInvalid.tpl');
+        }
+    }
+    else
+    {
+        $smarty->display('resetPasswordInvalid.tpl');
+    }
+
     
-    $smarty->display('resetPassword.tpl');
     //$smarty->display('tarefas.tpl');
     return $response;
 });
@@ -193,7 +242,7 @@ $app->post('/resetpassword', function (Request $request, Response $response) {
             ":token"=> $token
         ]);
 
-        $frase = "Você solicitou a troca de senha da <b>Lista de Tarefas</b></br>Clique o link abaixo para digitar sua nova senha</br></br>" . ROUTE . "/resetpassword?token=" . $token;
+        $frase = 'Você solicitou a troca de senha da <b>Lista de Tarefas</b></br>Clique o link abaixo para digitar sua nova senha</br></br><a href="' . ROUTE . "/resetpassword?token=" . $token .'">Clique aqui</a>';
 
         
         $response->getBody()->write(json_encode(array(

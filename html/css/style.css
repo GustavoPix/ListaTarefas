@@ -382,6 +382,16 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   margin-bottom: 10px;
 }
 
+.pageResetPass .center .titleCenter {
+  text-align: center;
+}
+
+.pageResetPass .center .titleCenter ~ .button {
+  margin: 0 auto;
+  display: table;
+  text-align: center;
+}
+
 * {
   font-family: "Ubuntu", sans-serif;
 }
