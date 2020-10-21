@@ -122,4 +122,48 @@
             }
         }
     }
+
+    .about{
+        width: 100vw;
+        height: 100vh;
+        background: rgba($color: $black, $alpha: 0.8);
+        position: absolute;
+        top: 0;
+        left: 0;
+        .conteudo{
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            padding: 20px;
+            background: $color1;
+            width: 100%;
+            max-width: 450px;
+
+            .row{
+                display: flex;
+                justify-content: flex-end;
+                .close{
+                    cursor: pointer;
+                }
+                margin-bottom: 30px;
+            }
+            .section{
+                margin-bottom: 50px;
+                text-align: right;
+                *{
+                    color: $white1;
+                }
+                h3{
+                    font-size: 12px;
+                    margin-bottom: 15px;
+                }
+                p{
+                    a{
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -332,6 +332,58 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   margin-bottom: 0;
 }
 
+.main_tarefas .about {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(31, 31, 36, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main_tarefas .about .conteudo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  padding: 20px;
+  background: #4949A5;
+  width: 100%;
+  max-width: 450px;
+}
+
+.main_tarefas .about .conteudo .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.main_tarefas .about .conteudo .row .close {
+  cursor: pointer;
+}
+
+.main_tarefas .about .conteudo .section {
+  margin-bottom: 50px;
+  text-align: right;
+}
+
+.main_tarefas .about .conteudo .section * {
+  color: #CCCCD4;
+}
+
+.main_tarefas .about .conteudo .section h3 {
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.main_tarefas .about .conteudo .section p a {
+  font-size: 18px;
+}
+
 .pageResetPass {
   display: -webkit-box;
   display: -ms-flexbox;
