@@ -20,6 +20,12 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   display: flex;
 }
 
+@media screen and (max-width: 799px) {
+  .login {
+    display: block;
+  }
+}
+
 .login h1 {
   font-size: 45px;
   color: #CCCCD4;
@@ -103,12 +109,37 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   background: #1F1F24;
 }
 
+@media screen and (min-width: 800px) and (max-width: 1199px) {
+  .login .left {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  .login .left {
+    width: 100%;
+    height: calc(100vh - 30px);
+  }
+}
+
 .login .right {
   width: 30%;
   background: #4949A5;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+
+@media screen and (min-width: 800px) and (max-width: 1199px) {
+  .login .right {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  .login .right {
+    width: 100%;
+  }
 }
 
 .login .right .error {

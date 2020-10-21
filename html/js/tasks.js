@@ -5,6 +5,7 @@ const vm_tasks = new Vue({
         newTask:"",
         token:"",
         id_user:"",
+        aboutOpen:false,
         tasks:[]
     },
     methods: {

@@ -1,5 +1,9 @@
 .login{
     display: flex;
+    @include mx-responsive("small")
+    {
+        display: block;
+    }
     h1{
         font-size: 45px;
         color: $white1;
@@ -61,11 +65,29 @@
     .left{
         width: 70%;
         background: $black;
+
+        @include mx-responsive("hd")
+        {
+            width: 50%;
+        }
+        @include mx-responsive("small")
+        {
+            width: 100%;
+            height: calc(100vh - 30px);
+        }
     }
     .right{
         width: 30%;
         background: $color1;
         align-items: flex-end;
+        @include mx-responsive("hd")
+        {
+            width: 50%;
+        }
+        @include mx-responsive("small")
+        {
+            width: 100%;
+        }
         .error{
             color: $white1;
         }
