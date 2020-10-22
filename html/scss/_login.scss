@@ -17,7 +17,13 @@
         bottom: 50px;
         right: 50px;
         a{
+            display: flex;
             color: $white1;
+            align-items: center;
+            svg{
+                margin-left: 10px;
+                margin-right: 10px;
+            }
         }
     }
     .left,.right{
@@ -103,7 +109,9 @@
     }
 
     .resetPass{
-        position: absolute;
+        position: fixed;
+        top: 0;
+        left: 0;
         display: flex;
         width: 100vw;
         height: 100vh;
@@ -114,6 +122,10 @@
             padding: 20px;
             background: $white1;
             border-radius: 3px;
+            @include mx-responsive("small")
+            {
+                max-width: 80vw;
+            }
             .descricao{
                 font-size: 24px;
                 color: $black;

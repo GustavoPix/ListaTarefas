@@ -42,7 +42,18 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
 }
 
 .login .copy a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   color: #CCCCD4;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login .copy a svg {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .login .left, .login .right {
@@ -156,7 +167,9 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
 }
 
 .login .resetPass {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -175,6 +188,12 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   padding: 20px;
   background: #CCCCD4;
   border-radius: 3px;
+}
+
+@media screen and (max-width: 799px) {
+  .login .resetPass .center {
+    max-width: 80vw;
+  }
 }
 
 .login .resetPass .center .descricao {
@@ -252,6 +271,18 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   cursor: pointer;
 }
 
+@media screen and (max-width: 799px) {
+  .main_tarefas .header .left {
+    width: 0;
+  }
+  .main_tarefas .header .search {
+    width: 70%;
+  }
+  .main_tarefas .header .icons {
+    width: 30%;
+  }
+}
+
 .main_tarefas .tarefas {
   background: #1F1F24;
   width: 100%;
@@ -264,6 +295,13 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
   width: 100%;
   max-width: 750px;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 799px) {
+  .main_tarefas .tarefas .task_lists {
+    padding: 20px;
+    margin: 0;
+  }
 }
 
 .main_tarefas .tarefas .task_lists .task {
@@ -316,6 +354,12 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li, a, div, img, button, input {
 
 .main_tarefas .tarefas .task_lists .task .icons {
   opacity: 0;
+}
+
+@media screen and (max-width: 799px) {
+  .main_tarefas .tarefas .task_lists .task .icons {
+    opacity: 1;
+  }
 }
 
 .main_tarefas .tarefas .task_lists .task .icons ul {

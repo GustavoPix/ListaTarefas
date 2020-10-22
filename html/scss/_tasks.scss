@@ -13,6 +13,7 @@
         >div{
             width: 33%;
         }
+
         .search{
             input{
                 border: none;
@@ -34,6 +35,19 @@
                 }
             }
         }
+
+        @include mx-responsive("small")
+        {
+            .left{
+                width: 0;
+            }
+            .search{
+                width: 70%;
+            }
+            .icons{
+                width: 30%;
+            }
+        }
     }
     .tarefas{
         background: $black;
@@ -45,6 +59,12 @@
             width: 100%;
             max-width: 750px;
             margin: 0 auto;
+
+            @include mx-responsive("small")
+            {
+               padding: 20px;
+               margin: 0;
+            }
             .task{
                 width: 100%;
                 padding: 15px 0;
@@ -82,6 +102,9 @@
                 }
                 .icons{
                     opacity: 0;
+                    @include mx-responsive("small"){
+                        opacity: 1;
+                    }
                     ul{
                         display: flex;
                         align-items: center;

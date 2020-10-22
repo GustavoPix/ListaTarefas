@@ -12,7 +12,7 @@
 <body>
     <div class="main_tarefas" id="app">
         <div class="header">
-            <div></div>
+            <div class="left"></div>
             <div class="search">
                 <input type="text" placeholder="Buscar..." v-model="search">
             </div>
