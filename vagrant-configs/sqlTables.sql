@@ -1,5 +1,3 @@
-use  my_db;
-
 create table users(
 	id INT primary key auto_increment not null,
     name VARCHAR(255) not null,
